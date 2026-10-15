@@ -1,0 +1,22 @@
+{
+  "short_name": "AgroApp",
+  "name": "AgroApp - Gestão de Plantas e Jardinagem",
+  "description": "Aplicação para consulta, registo e gestão de cuidados com plantas decorativas e de jardim.",
+  "icons": [
+    {
+      "src": "assets/images/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/images/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#2e7d32",
+  "theme_color": "#2e7d32",
+  "display": "standalone",
+  "orientation": "portrait"
+}
