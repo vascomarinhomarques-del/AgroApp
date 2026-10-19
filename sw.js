@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agroapp-cache-v1';
+const CACHE_NAME = 'agroapp-cache-v5';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -9,7 +9,14 @@ const ASSETS_TO_CACHE = [
   '/assets/js/modules/api.js',
   '/assets/js/modules/UI.js',
   '/pages/offline.html',
-  '/pages/sobre.html'
+  '/pages/sobre.html',
+  '/pages/login.html',
+  '/pages/signup.html',
+  '/pages/menu.html',
+  '/pages/plants.html',
+  '/assets/js/login.js',
+  '/assets/js/signup.js',
+  '/assets/js/plants.js'
 ];
 
 // Instalação e armazenamento de ficheiros estáticos em cache
