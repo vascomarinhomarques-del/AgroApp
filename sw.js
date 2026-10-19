@@ -1,24 +1,25 @@
-const CACHE_NAME = 'agroapp-cache-v6';
+const CACHE_NAME = 'agroapp-cache-v7';
+const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/assets/css/styles.css',
-  '/assets/js/app.js',
-  '/assets/js/db.js',
-  '/assets/js/modules/api.js',
-  '/assets/js/modules/UI.js',
-  '/pages/offline.html',
-  '/pages/sobre.html',
-  '/pages/login.html',
-  '/pages/signup.html',
-  '/pages/menu.html',
-  '/pages/plants.html',
-  '/pages/care.html',
-  '/assets/js/login.js',
-  '/assets/js/signup.js',
-  '/assets/js/plants.js',
-  '/assets/js/care.js'
+  './',
+  'index.html',
+  'manifest.json',
+  'assets/css/styles.css',
+  'assets/js/app.js',
+  'assets/js/db.js',
+  'assets/js/modules/api.js',
+  'assets/js/modules/UI.js',
+  'pages/offline.html',
+  'pages/sobre.html',
+  'pages/login.html',
+  'pages/signup.html',
+  'pages/menu.html',
+  'pages/plants.html',
+  'pages/care.html',
+  'assets/js/login.js',
+  'assets/js/signup.js',
+  'assets/js/plants.js',
+  'assets/js/care.js'
 ];
 
 // Instalação e armazenamento de ficheiros estáticos em cache
@@ -26,7 +27,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('[Service Worker] A guardar assets estáticos no cache...');
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(
+        ASSETS_TO_CACHE.map((asset) => new URL(asset, APP_BASE_URL).href)
+      );
     })
   );
   self.skipWaiting();
@@ -60,7 +63,7 @@ self.addEventListener('fetch', (event) => {
         .catch(() => {
           // Se for uma navegação e falhar a rede, devolve a página offline
           if (event.request.mode === 'navigate') {
-            return caches.match('/pages/offline.html');
+            return caches.match(new URL('pages/offline.html', APP_BASE_URL).href);
           }
         });
     })
