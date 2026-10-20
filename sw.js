@@ -1,8 +1,9 @@
-const CACHE_NAME = 'agroapp-cache-v11';
+const CACHE_NAME = 'agroapp-cache-v13';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
   './',
   'index.html',
+  'favicon.svg',
   'manifest.json',
   'assets/css/styles.css',
   'assets/js/app.js',
