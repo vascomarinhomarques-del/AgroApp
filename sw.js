@@ -1,4 +1,5 @@
-const CACHE_NAME = 'agroapp-cache-v13';
+const CACHE_NAME = 'agroapp-cache-v15';
+const CACHE_PREFIX = 'agroapp-cache-';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
   './',
@@ -26,47 +27,72 @@ const ASSETS_TO_CACHE = [
 // Instalação e armazenamento de ficheiros estáticos em cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
       console.log('[Service Worker] A guardar assets estáticos no cache...');
-      return cache.addAll(
+      await cache.addAll(
         ASSETS_TO_CACHE.map((asset) => new URL(asset, APP_BASE_URL).href)
       );
-    })
+      await self.skipWaiting();
+    })()
   );
-  self.skipWaiting();
 });
 
 // Ativação e limpeza de caches antigos
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
       );
-    })
+      await self.clients.claim();
+    })()
   );
-  self.clients.claim();
 });
 
-// Interceção de pedidos de rede (Estratégia: Cache com rede como reserva)
+// As páginas são atualizadas pela rede; os assets usam a cache como primeira opção.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  const requestUrl = new URL(event.request.url);
+  const appScope = new URL(self.registration.scope);
+  if (
+    requestUrl.origin !== appScope.origin ||
+    !requestUrl.pathname.startsWith(appScope.pathname)
+  ) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const isNavigation = event.request.mode === 'navigate';
+
+      if (!isNavigation) {
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) return cachedResponse;
       }
-      return fetch(event.request)
-        .then((networkResponse) => {
-          return networkResponse;
-        })
-        .catch(() => {
-          // Se for uma navegação e falhar a rede, devolve a página offline
-          if (event.request.mode === 'navigate') {
-            return caches.match(new URL('pages/offline.html', APP_BASE_URL).href);
-          }
-        });
-    })
+
+      try {
+        const networkResponse = await fetch(event.request);
+        if (networkResponse.ok) {
+          await cache.put(event.request, networkResponse.clone());
+        }
+        return networkResponse;
+      } catch (error) {
+        if (!isNavigation) throw error;
+
+        const cachedPage = await cache.match(event.request);
+        if (cachedPage) return cachedPage;
+
+        const offlinePage = await cache.match(
+          new URL('pages/offline.html', APP_BASE_URL).href
+        );
+        return offlinePage || Response.error();
+      }
+    })()
   );
 });
