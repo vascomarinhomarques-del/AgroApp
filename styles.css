@@ -1,0 +1,704 @@
+
+/* Configuração geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #071b10;
+    color: #ffffff;
+}
+
+/* Ecrã principal */
+.splash-screen {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=85");
+
+    background-size: cover;
+    background-position: center;
+}
+
+/* Camada escura para melhorar a leitura */
+.overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(3, 20, 11, 0.35),
+        rgba(3, 20, 11, 0.65),
+        rgba(3, 20, 11, 0.88)
+    );
+}
+
+/* Conteúdo central */
+.content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 40px 28px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+/* Logótipo */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo svg {
+    width: 76px;
+    height: 76px;
+    color: #ffffff;
+}
+
+.logo h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 10vw, 54px);
+    font-weight: 400;
+    letter-spacing: -1.5px;
+}
+
+.tagline {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #edf4eb;
+    letter-spacing: 0.2px;
+}
+
+/* Botões */
+.actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 95px;
+}
+
+.btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 14px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: background 0.25s ease,
+                transform 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: #286541;
+    color: #ffffff;
+    border: 1px solid #43865c;
+}
+
+.btn-primary:hover {
+    background: #347b50;
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.15);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Texto inferior */
+.footer-text {
+    position: absolute;
+    bottom: 35px;
+    left: 15px;
+    right: 15px;
+
+    font-size: 12px;
+    color: #f0f3ec;
+}
+
+/* Adaptação a ecrãs pequenos */
+@media (max-width: 480px) {
+    .content {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .actions {
+        margin-top: 75px;
+    }
+
+    .logo svg {
+        width: 68px;
+        height: 68px;
+    }
+}
+
+/* Ecrã de início de sessão */
+.auth-screen {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 32px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=85");
+    background-size: cover;
+    background-position: center;
+}
+
+.auth-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 20, 11, 0.72);
+}
+
+.auth-panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    padding: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    background: rgba(7, 27, 16, 0.82);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(12px);
+}
+
+.auth-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+}
+
+.auth-brand svg {
+    width: 34px;
+    height: 34px;
+}
+
+.auth-eyebrow {
+    margin-top: 36px;
+    color: #b7d9bd;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.auth-panel h1 {
+    margin-top: 9px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 7vw, 36px);
+    font-weight: 400;
+}
+
+.auth-description {
+    margin-top: 9px;
+    color: #d8e4d9;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.login-form label {
+    margin: 0 0 8px;
+    color: #f3f7f1;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login-form input {
+    width: 100%;
+    min-height: 48px;
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 10px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.96);
+    color: #14271a;
+    font: inherit;
+}
+
+.login-form input:focus {
+    border-color: #91c49d;
+    box-shadow: 0 0 0 3px rgba(145, 196, 157, 0.28);
+}
+
+.login-submit {
+    margin-top: 5px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.login-message {
+    min-height: 20px;
+    margin-top: 14px;
+    color: #d6ebd9;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #d8e4d9;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.auth-switch {
+    margin-top: 8px;
+    color: #d8e4d9;
+    font-size: 14px;
+}
+
+.auth-switch a {
+    color: #b7d9bd;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .auth-panel {
+        padding: 28px 24px;
+    }
+}
+
+/* Menu principal */
+.menu-page {
+    min-height: 100vh;
+    background: #f5f7f2;
+    color: #193b27;
+}
+
+.menu-screen {
+    min-height: 100vh;
+}
+
+.menu-header {
+    min-height: 76px;
+    padding: 0 max(24px, calc((100vw - 1040px) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e3e9df;
+    background: #ffffff;
+}
+
+.menu-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #17482d;
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+}
+
+.menu-brand svg {
+    width: 34px;
+    height: 34px;
+}
+
+.menu-exit,
+.menu-home-link {
+    color: #286541;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.menu-exit:hover,
+.menu-home-link:hover {
+    color: #17482d;
+    text-decoration: underline;
+}
+
+.menu-content {
+    width: min(100% - 40px, 920px);
+    margin: 0 auto;
+    padding: 64px 0 48px;
+}
+
+.menu-eyebrow {
+    color: #568363;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.menu-content h1 {
+    margin-top: 8px;
+    color: #173b26;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 7vw, 48px);
+    font-weight: 400;
+}
+
+.menu-intro {
+    margin-top: 10px;
+    color: #637267;
+    font-size: 16px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 34px;
+}
+
+.menu-card {
+    min-height: 154px;
+    padding: 23px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+    column-gap: 17px;
+    border: 1px solid #e1e8dd;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(34, 68, 43, 0.05);
+}
+
+.menu-card-link {
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.menu-card-link:hover {
+    transform: translateY(-2px);
+    border-color: #b9d2b7;
+    box-shadow: 0 12px 28px rgba(34, 68, 43, 0.1);
+}
+
+.menu-card-link:focus-visible {
+    outline: 3px solid #6b9b73;
+    outline-offset: 3px;
+}
+
+.menu-card-icon {
+    width: 52px;
+    height: 52px;
+    grid-row: 1 / 3;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #edf5ec;
+    color: #286541;
+}
+
+.menu-card-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-card-copy h2 {
+    color: #203d2a;
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+.menu-card-copy p {
+    margin-top: 7px;
+    color: #68766b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.menu-card-status {
+    margin-top: 16px;
+    grid-column: 2;
+    color: #738176;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.menu-home-link {
+    display: inline-block;
+    margin-top: 32px;
+}
+
+.plants-content {
+    width: min(100% - 40px, 920px);
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
+
+.plants-back-link {
+    margin: 0 0 34px;
+}
+
+.plants-search-label {
+    display: block;
+    margin-top: 30px;
+    color: #314d38;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.plants-search {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 9px;
+    padding: 12px 16px;
+    border: 1px solid #d6e0d3;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #193b27;
+    font: inherit;
+}
+
+.plants-search:focus {
+    border-color: #6b9b73;
+    outline: 3px solid rgba(107, 155, 115, 0.2);
+}
+
+.plants-feedback {
+    margin: 22px 0 14px;
+    color: #637267;
+    font-size: 14px;
+}
+
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.plant-list-card {
+    overflow: hidden;
+    border: 1px solid #e1e8dd;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(34, 68, 43, 0.05);
+}
+
+.plant-list-illustration {
+    min-height: 110px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #e9f2e5, #f4f7ed);
+    font-size: 45px;
+}
+
+.plant-list-details {
+    padding: 18px;
+}
+
+.plant-list-details h2 {
+    color: #203d2a;
+    font-size: 18px;
+}
+
+.plant-scientific-name {
+    margin-top: 4px;
+    color: #718073;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.plant-type {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #edf5ec;
+    color: #376847;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.plant-care {
+    display: grid;
+    gap: 9px;
+    margin-top: 16px;
+    color: #68766b;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.plant-care strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #314d38;
+    font-size: 12px;
+}
+
+.plants-demo-note {
+    margin-top: 22px;
+    color: #738176;
+    font-size: 12px;
+}
+
+.care-tips {
+    display: grid;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.care-tip {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid #e1e8dd;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.care-tip-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #edf5ec;
+    font-size: 21px;
+}
+
+.care-tip h2 {
+    color: #203d2a;
+    font-size: 16px;
+}
+
+.care-tip p {
+    margin-top: 5px;
+    color: #68766b;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.care-list-title {
+    margin-top: 34px;
+    color: #203d2a;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.care-plants-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.care-plant-card {
+    padding: 20px;
+    border: 1px solid #e1e8dd;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(34, 68, 43, 0.05);
+}
+
+.care-plant-card h3 {
+    color: #203d2a;
+    font-size: 18px;
+}
+
+.care-plant-card .plant-care {
+    margin-top: 18px;
+}
+
+@media (max-width: 620px) {
+    .menu-header {
+        min-height: 68px;
+        padding: 0 20px;
+    }
+
+    .menu-content {
+        width: min(100% - 32px, 440px);
+        padding-top: 42px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 26px;
+    }
+
+    .menu-card {
+        min-height: 138px;
+        padding: 19px;
+    }
+
+    .plants-content {
+        width: min(100% - 32px, 440px);
+        padding-top: 24px;
+    }
+
+    .plants-back-link {
+        margin-bottom: 28px;
+    }
+
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .care-plants-grid {
+        grid-template-columns: 1fr;
+    }
+}
