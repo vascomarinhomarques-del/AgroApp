@@ -1,3 +1,10 @@
+if (document.body && document.querySelector('.splash-screen')) {
+  const currentUser = window.VerdeVivoDB?.getCurrentUser?.();
+  if (currentUser) {
+    window.location.href = './pages/menu.html';
+  }
+}
+
 // Registo do Service Worker para PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
