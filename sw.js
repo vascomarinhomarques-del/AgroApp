@@ -1,5 +1,5 @@
-const CACHE_NAME = 'agroapp-cache-v15';
-const CACHE_PREFIX = 'agroapp-cache-';
+const CACHE_NAME = 'verdevivo-cache-v16';
+const CACHE_PREFIX = 'verdevivo-cache-';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
   './',
@@ -9,22 +9,20 @@ const ASSETS_TO_CACHE = [
   'assets/css/styles.css',
   'assets/js/app.js',
   'assets/js/db.js',
+  'assets/js/menu.js',
+  'assets/js/login.js',
+  'assets/js/signup.js',
+  'assets/js/plants.js',
+  'assets/js/care.js',
   'assets/js/modules/api.js',
-  'assets/js/modules/UI.js',
   'pages/offline.html',
-  'pages/sobre.html',
   'pages/login.html',
   'pages/signup.html',
   'pages/menu.html',
   'pages/plants.html',
-  'pages/care.html',
-  'assets/js/login.js',
-  'assets/js/signup.js',
-  'assets/js/plants.js',
-  'assets/js/care.js'
+  'pages/care.html'
 ];
 
-// Instalação e armazenamento de ficheiros estáticos em cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
@@ -38,7 +36,6 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Ativação e limpeza de caches antigos
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
@@ -53,12 +50,12 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// As páginas são atualizadas pela rede; os assets usam a cache como primeira opção.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const requestUrl = new URL(event.request.url);
   const appScope = new URL(self.registration.scope);
+
   if (
     requestUrl.origin !== appScope.origin ||
     !requestUrl.pathname.startsWith(appScope.pathname)
@@ -78,20 +75,22 @@ self.addEventListener('fetch', (event) => {
 
       try {
         const networkResponse = await fetch(event.request);
-        if (networkResponse.ok) {
-          await cache.put(event.request, networkResponse.clone());
+        if (networkResponse && networkResponse.ok) {
+          cache.put(event.request, networkResponse.clone());
         }
         return networkResponse;
       } catch (error) {
-        if (!isNavigation) throw error;
+        if (isNavigation) {
+          const cachedPage = await cache.match(event.request);
+          if (cachedPage) return cachedPage;
 
-        const cachedPage = await cache.match(event.request);
-        if (cachedPage) return cachedPage;
+          const offlinePage = await cache.match(
+            new URL('pages/offline.html', APP_BASE_URL).href
+          );
+          if (offlinePage) return offlinePage;
+        }
 
-        const offlinePage = await cache.match(
-          new URL('pages/offline.html', APP_BASE_URL).href
-        );
-        return offlinePage || Response.error();
+        return Response.error();
       }
     })()
   );
