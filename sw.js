@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdevivo-cache-v17';
+const CACHE_NAME = 'verdevivo-cache-v18';
 const CACHE_PREFIX = 'verdevivo-cache-';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [

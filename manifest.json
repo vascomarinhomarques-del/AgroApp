@@ -1,6 +1,7 @@
 {
   "short_name": "AgroApp",
   "name": "AgroApp - Gestão de Plantas e Jardinagem",
+  "version": "1.0.0",
   "description": "Aplicação para consulta, registo e gestão de cuidados com plantas decorativas e de jardim.",
   "icons": [
     {

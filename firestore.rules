@@ -2,9 +2,46 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function isValidPlant(plant) {
+      return plant.keys().hasAll([
+          'nomeComum',
+          'nomeCientifico',
+          'tipo',
+          'rega',
+          'luz'
+        ])
+        && plant.keys().hasOnly([
+          'nomeComum',
+          'nomeCientifico',
+          'tipo',
+          'rega',
+          'luz'
+        ])
+        && plant.nomeComum is string
+        && plant.nomeComum.size() > 0
+        && plant.nomeComum.size() <= 120
+        && plant.nomeCientifico is string
+        && plant.nomeCientifico.size() > 0
+        && plant.nomeCientifico.size() <= 160
+        && plant.tipo is string
+        && plant.tipo.size() > 0
+        && plant.tipo.size() <= 120
+        && plant.rega is string
+        && plant.rega.size() > 0
+        && plant.rega.size() <= 240
+        && plant.luz is string
+        && plant.luz.size() > 0
+        && plant.luz.size() <= 240;
+    }
+
     match /plants/{plantId} {
       allow read: if true;
-      allow write: if false;
+      allow create, update: if isAdmin() && isValidPlant(request.resource.data);
+      allow delete: if isAdmin();
     }
   }
 }
