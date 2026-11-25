@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdevivo-cache-v16';
+const CACHE_NAME = 'verdevivo-cache-v17';
 const CACHE_PREFIX = 'verdevivo-cache-';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
@@ -8,7 +8,8 @@ const ASSETS_TO_CACHE = [
   'manifest.json',
   'assets/css/styles.css',
   'assets/js/app.js',
-  'assets/js/db.js',
+  'assets/js/auth.js',
+  'assets/js/firebase.js',
   'assets/js/menu.js',
   'assets/js/login.js',
   'assets/js/signup.js',
