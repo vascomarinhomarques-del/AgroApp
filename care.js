@@ -1,4 +1,4 @@
-import { fetchPlants } from './modules/api.js';
+import { fetchPlants, getPlantImagePath } from './modules/api.js';
 
 const careContainer = document.querySelector('#care-plants-container');
 const careFeedback = document.querySelector('#care-feedback');
@@ -27,6 +27,12 @@ function renderPlantCare(plants) {
         const card = document.createElement('article');
         card.className = 'care-plant-card';
 
+        const image = document.createElement('img');
+        image.alt = plant.nomeComum;
+        image.src = getPlantImagePath(plant);
+
+        const detailsWrap = document.createElement('div');
+
         const title = document.createElement('h3');
         title.textContent = plant.nomeComum;
 
@@ -41,7 +47,8 @@ function renderPlantCare(plants) {
             createCareItem('Luz', plant.luz)
         );
 
-        card.append(title, scientificName, details);
+        detailsWrap.append(title, scientificName, details);
+        card.append(image, detailsWrap);
         careContainer.append(card);
     });
 }

@@ -1,4 +1,4 @@
-import { fetchPlants } from './modules/api.js';
+import { fetchPlants, getPlantImagePath } from './modules/api.js';
 
 const plantsContainer = document.querySelector('#plants-container');
 const plantsFeedback = document.querySelector('#plants-feedback');
@@ -32,46 +32,30 @@ function renderPlants(searchTerm = '') {
 
     filteredPlants.forEach((plant) => {
         const card = document.createElement('article');
-        card.className = 'plant-list-card';
+        card.className = 'catalog-card';
 
-        const illustration = document.createElement('div');
-        illustration.className = 'plant-list-illustration';
-        illustration.setAttribute('aria-hidden', 'true');
-        illustration.textContent = '🌱';
+        const imageWrap = document.createElement('div');
+        imageWrap.className = 'catalog-card-image';
+        const image = document.createElement('img');
+        image.src = getPlantImagePath(plant);
+        image.alt = plant.nomeComum;
+        imageWrap.append(image);
 
         const details = document.createElement('div');
-        details.className = 'plant-list-details';
-
         const title = document.createElement('h2');
         title.textContent = plant.nomeComum;
-
         const scientificName = document.createElement('p');
-        scientificName.className = 'plant-scientific-name';
-        scientificName.textContent = plant.nomeCientifico;
+        scientificName.textContent = `${plant.nomeCientifico} — ${plant.tipo}`;
+        details.append(title, scientificName);
 
-        const type = document.createElement('p');
-        type.className = 'plant-type';
-        type.textContent = plant.tipo;
+        const favorite = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        favorite.setAttribute('viewBox', '0 0 24 24');
+        favorite.classList.add('favorite-icon');
+        favorite.innerHTML = '<path d="M12 21C7 18 4 14 4 9c5 0 8 3 8 8Zm0-4c0-5 3-8 8-8 0 5-3 9-8 9Z"/>';
 
-        const care = document.createElement('div');
-        care.className = 'plant-care';
-
-        const watering = createCareDetail('Rega', plant.rega);
-        const light = createCareDetail('Luz', plant.luz);
-
-        care.append(watering, light);
-        details.append(title, scientificName, type, care);
-        card.append(illustration, details);
+        card.append(imageWrap, details, favorite);
         plantsContainer.append(card);
     });
-}
-
-function createCareDetail(label, value) {
-    const detail = document.createElement('p');
-    const heading = document.createElement('strong');
-    heading.textContent = label;
-    detail.append(heading, document.createTextNode(value));
-    return detail;
 }
 
 plantSearch.addEventListener('input', () => {

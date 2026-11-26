@@ -1,8 +1,12 @@
+import { observeAuthState } from './auth.js';
+
 if (document.body && document.querySelector('.splash-screen')) {
-  const currentUser = window.VerdeVivoDB?.getCurrentUser?.();
-  if (currentUser) {
-    window.location.href = './pages/menu.html';
-  }
+  observeAuthState(
+    (user) => {
+      if (user) window.location.href = './pages/menu.html';
+    },
+    (error) => console.error('[VerdeVivo Auth] Falha ao verificar a sessão:', error)
+  );
 }
 
 // Registo do Service Worker para PWA

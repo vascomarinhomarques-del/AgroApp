@@ -702,3 +702,401 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Interface móvel inspirada no protótipo */
+.app-page {
+    background: #f5f7f2;
+    color: #173b26;
+}
+.app-shell {
+    position: relative;
+    width: min(100%, 430px);
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #f7f8f4;
+}
+.app-topbar {
+    height: 64px;
+    padding: 10px 18px;
+    display: grid;
+    grid-template-columns: 42px 1fr 42px;
+    align-items: center;
+    background: #fff;
+}
+.app-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #264b35;
+    text-decoration: none;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+}
+.app-brand svg { width: 27px; height: 27px; }
+.app-brand.compact { justify-content: center; font-size: 15px; }
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    justify-self: end;
+    overflow: hidden;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 5px rgba(32,58,41,.16);
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.back-button {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: #294936;
+}
+.back-button svg { width: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.home-content, .catalog-content, .profile-content {
+    padding: 20px 16px 92px;
+}
+.home-greeting { margin: 4px 0 14px; color: #26372d; font-size: 16px; font-weight: 650; }
+.app-search {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 12px;
+    border: 1px solid #e1e5de;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(42,63,47,.04);
+}
+.app-search svg { width: 18px; fill: none; stroke: #819087; stroke-width: 1.8; stroke-linecap: round; }
+.app-search input { width: 100%; border: 0; outline: 0; background: transparent; color: #26372d; font: inherit; }
+.app-search input::placeholder { color: #9aa39c; }
+.section-title {
+    margin: 20px 0 12px;
+    color: #24372b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 600;
+}
+.popular-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.popular-card {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #193b27;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(34, 68, 43, 0.07);
+}
+.popular-card img { display: block; width: 100%; aspect-ratio: 1.54; object-fit: cover; }
+.popular-card span { min-height: 38px; padding: 8px 6px; display: flex; align-items: center; justify-content: center; color: #193b27; font-size: 11px; font-weight: 600; line-height: 1.3; text-align: center; }
+.home-section-heading { display: flex; align-items: center; justify-content: space-between; }
+.home-section-heading a { color: #9ab09f; font-size: 11px; text-decoration: none; }
+.featured-row { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+.featured-card { min-width: 146px; overflow: hidden; border-radius: 9px; background: #fff; box-shadow: 0 3px 12px rgba(38,62,45,.08); }
+.featured-card img { width: 100%; height: 92px; object-fit: cover; }
+.featured-card div { padding: 8px; }
+.featured-card h3 { color: #2a3a30; font-size: 13px; }
+.featured-card p { margin-top: 3px; color: #8a958d; font-size: 10px; }
+.bottom-nav {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    left: 50%;
+    width: min(100%, 430px);
+    height: 72px;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid #edf0ea;
+    background: rgba(255,255,255,.97);
+}
+.nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #a9b0aa; font-size: 10px; text-decoration: none; }
+.nav-item svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.nav-item.active { color: #1f5635; }
+.catalog-tabs { display: flex; gap: 16px; margin: 16px 0 10px; border-bottom: 1px solid #edf0ea; }
+.catalog-tab { height: 38px; padding: 0 4px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #9aa49d; font: inherit; font-size: 13px; }
+.catalog-tab.active { border-bottom-color: #315b40; color: #315b40; font-weight: 650; }
+.catalog-feedback { min-height: 18px; margin: 8px 0; color: #879087; font-size: 11px; }
+.catalog-list { display: flex; flex-direction: column; gap: 8px; }
+.catalog-card { min-height: 82px; display: grid; grid-template-columns: 78px 1fr 28px; align-items: center; gap: 10px; padding: 7px; border: 0; border-radius: 8px; background: #fff; color: #26372d; text-align: left; box-shadow: 0 2px 8px rgba(38,62,45,.05); }
+.catalog-card-image { width: 78px; height: 68px; overflow: hidden; border-radius: 6px; }
+.catalog-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.catalog-card h2 { font-size: 13px; }
+.catalog-card p { margin-top: 3px; color: #929d95; font-size: 10px; }
+.catalog-card .favorite-icon { width: 20px; height: 20px; fill: none; stroke: #6c7870; stroke-width: 1.8; }
+.care-list { display: flex; flex-direction: column; gap: 9px; }
+.care-plant-card { min-height: 80px; display: grid; grid-template-columns: 76px 1fr; align-items: center; gap: 10px; padding: 7px; border: 0; border-radius: 8px; background: #fff; box-shadow: 0 2px 8px rgba(38,62,45,.05); }
+.care-plant-card img { width: 76px; height: 66px; border-radius: 6px; object-fit: cover; }
+.care-plant-card h3 { font-size: 13px; }
+.care-plant-card .plant-scientific-name { margin-top: 2px; font-size: 9px; }
+.care-plant-card .plant-care { display: flex; gap: 10px; margin-top: 8px; font-size: 9px; }
+.care-plant-card .plant-care strong { display: none; }
+.profile-content h1 { margin: 4px 0 14px; color: #26372d; font-size: 18px; }
+.profile-card { display: grid; grid-template-columns: 54px 1fr; align-items: center; gap: 11px; padding: 10px 0 18px; }
+.profile-card img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; }
+.profile-card h2 { font-size: 14px; }
+.profile-card p { margin-top: 3px; color: #8a958d; font-size: 10px; }
+.profile-options { border-top: 1px solid #edf0ea; }
+.profile-options a { min-height: 54px; display: grid; grid-template-columns: 32px 1fr 20px; align-items: center; border-bottom: 1px solid #edf0ea; color: #59665e; font-size: 12px; text-decoration: none; }
+.profile-options svg { width: 18px; height: 18px; fill: none; stroke: #5f6d64; stroke-width: 1.6; }
+.profile-options b { color: #9fa8a1; font-size: 18px; }
+.profile-logout { width: 100%; min-height: 44px; margin-top: 18px; border: 0; border-radius: 8px; background: #315b40; color: #fff; font: inherit; font-size: 12px; }
+
+/* Identidade visual da aplicação e adaptação responsiva */
+.app-page {
+    background: #f5f7f2;
+    color: #173b26;
+}
+
+.app-shell {
+    background: #f5f7f2;
+}
+
+.app-topbar {
+    border-bottom: 1px solid #e3e9df;
+    background: #ffffff;
+}
+
+.app-brand,
+.back-button,
+.nav-item.active {
+    color: #286541;
+}
+
+.app-search,
+.catalog-card,
+.care-plant-card,
+.featured-card {
+    border: 1px solid #e1e8dd;
+    box-shadow: 0 8px 24px rgba(34, 68, 43, 0.06);
+}
+
+.app-search {
+    border-radius: 12px;
+}
+
+.app-search input:focus {
+    color: #193b27;
+}
+
+.section-title,
+.home-greeting,
+.profile-content h1,
+.catalog-card h2,
+.care-plant-card h3 {
+    color: #173b26;
+}
+
+.catalog-tab.active,
+.nav-item.active {
+    color: #286541;
+}
+
+.catalog-tab.active {
+    border-bottom-color: #286541;
+}
+
+.profile-logout {
+    background: #286541;
+    border: 1px solid #43865c;
+}
+
+.bottom-nav {
+    border-top: 1px solid #e3e9df;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.nav-item {
+    color: #738176;
+}
+
+@media (max-width: 699px) {
+    .app-page {
+        background: #f5f7f2;
+    }
+
+    .app-shell {
+        width: 100%;
+        max-width: 430px;
+    }
+
+    .bottom-nav {
+        width: min(100%, 430px);
+    }
+}
+
+@media (min-width: 700px) {
+    .app-page {
+        padding: 0;
+        background: #f5f7f2;
+    }
+
+    .app-shell {
+        width: 100%;
+        max-width: none;
+        min-height: 100vh;
+        min-height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .app-topbar {
+        height: 74px;
+        padding-inline: 36px;
+        grid-template-columns: 180px 1fr 180px;
+    }
+
+    .app-brand {
+        font-size: 22px;
+    }
+
+    .app-brand svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .home-content,
+    .catalog-content,
+    .profile-content {
+        width: min(900px, calc(100% - 72px));
+        margin: 0 auto;
+        padding: 32px 0 112px;
+    }
+
+    .home-greeting {
+        font-size: 20px;
+    }
+
+    .app-search {
+        min-height: 52px;
+    }
+
+    .section-title {
+        margin-top: 26px;
+        font-size: 22px;
+    }
+
+    .popular-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .popular-card { border-radius: 14px; }
+    .popular-card span { min-height: 54px; padding: 10px; font-size: 15px; }
+
+    .featured-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        overflow: visible;
+    }
+
+    .featured-card {
+        min-width: 0;
+        border-radius: 14px;
+    }
+
+    .featured-card img {
+        height: 150px;
+    }
+
+    .featured-card h3 {
+        font-size: 16px;
+    }
+
+    .featured-card p {
+        font-size: 12px;
+    }
+
+    .bottom-nav {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 82px;
+        transform: none;
+        grid-template-columns: repeat(4, 150px);
+        justify-content: center;
+        column-gap: 24px;
+    }
+
+    .nav-item {
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .nav-item svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .catalog-list,
+    .care-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .catalog-card {
+        min-height: 110px;
+        grid-template-columns: 120px 1fr 28px;
+        padding: 10px;
+    }
+
+    .catalog-card-image {
+        width: 120px;
+        height: 90px;
+    }
+
+    .catalog-card h2,
+    .care-plant-card h3 {
+        font-size: 16px;
+    }
+
+    .catalog-card p {
+        font-size: 12px;
+    }
+
+    .care-plant-card {
+        min-height: 110px;
+        grid-template-columns: 120px 1fr;
+        padding: 10px;
+    }
+
+    .care-plant-card img {
+        width: 120px;
+        height: 90px;
+    }
+
+    .care-plant-card .plant-care {
+        font-size: 12px;
+    }
+
+    .profile-content {
+        max-width: 760px;
+    }
+
+    .profile-card {
+        grid-template-columns: 76px 1fr;
+    }
+
+    .profile-card img {
+        width: 76px;
+        height: 76px;
+    }
+
+    .profile-card h2 {
+        font-size: 18px;
+    }
+
+    .profile-card p,
+    .profile-options a {
+        font-size: 14px;
+    }
+
+    .profile-options a {
+        min-height: 64px;
+    }
+}

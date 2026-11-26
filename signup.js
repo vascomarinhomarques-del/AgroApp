@@ -1,3 +1,5 @@
+import { getAuthErrorMessage, registerUser } from './auth.js';
+
 const signupForm = document.querySelector('#signup-form');
 const signupPassword = document.querySelector('#signup-password');
 const confirmPassword = document.querySelector('#confirm-password');
@@ -24,8 +26,9 @@ if (confirmPassword) {
 }
 
 if (signupForm) {
-    signupForm.addEventListener('submit', (event) => {
+    signupForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+        signupMessage.textContent = '';
 
         const name = signupForm.elements.name.value.trim();
         const email = signupForm.elements.email.value.trim();
@@ -36,15 +39,12 @@ if (signupForm) {
             return;
         }
 
-        const result = window.VerdeVivoDB.registerUser({ name, email, password });
-
-        if (!result.ok) {
-            signupMessage.textContent = result.message;
-            return;
+        try {
+            await registerUser({ name, email, password });
+            window.location.href = 'menu.html';
+        } catch (error) {
+            console.error('[VerdeVivo Auth] Falha ao criar conta:', error);
+            signupMessage.textContent = getAuthErrorMessage(error, 'register');
         }
-
-        window.VerdeVivoDB.setCurrentUser(result.user);
-        signupMessage.textContent = result.message;
-        window.location.href = 'menu.html';
     });
 }

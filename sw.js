@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdevivo-cache-v18';
+const CACHE_NAME = 'verdevivo-cache-v24';
 const CACHE_PREFIX = 'verdevivo-cache-';
 const APP_BASE_URL = new URL('./', self.registration.scope);
 const ASSETS_TO_CACHE = [
@@ -7,6 +7,12 @@ const ASSETS_TO_CACHE = [
   'favicon.svg',
   'manifest.json',
   'assets/css/styles.css',
+  'assets/images/categories/hortensia.jpg',
+  'assets/images/categories/zamioculca.jpg',
+  'assets/images/categories/medicinais.jpg',
+  'assets/images/categories/alfazema.jpg',
+  'assets/images/categories/buganvilia.jpg',
+  'assets/images/categories/suculentas.jpg',
   'assets/js/app.js',
   'assets/js/auth.js',
   'assets/js/firebase.js',
@@ -15,13 +21,15 @@ const ASSETS_TO_CACHE = [
   'assets/js/signup.js',
   'assets/js/plants.js',
   'assets/js/care.js',
+  'assets/js/profile.js',
   'assets/js/modules/api.js',
   'pages/offline.html',
   'pages/login.html',
   'pages/signup.html',
   'pages/menu.html',
   'pages/plants.html',
-  'pages/care.html'
+  'pages/care.html',
+  'pages/profile.html'
 ];
 
 self.addEventListener('install', (event) => {

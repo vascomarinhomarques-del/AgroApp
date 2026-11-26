@@ -1,17 +1,19 @@
+import { observeAuthState } from './auth.js';
+
 const menuGreeting = document.querySelector('#menu-user-greeting');
-const menuExit = document.querySelector('.menu-exit');
 
 if (menuGreeting) {
-    const currentUser = window.VerdeVivoDB?.getCurrentUser?.();
-    if (currentUser && currentUser.name) {
-        menuGreeting.textContent = `Olá, ${currentUser.name}! O que gostarias de fazer hoje?`;
-    }
+    observeAuthState(
+        (user) => {
+            if (user) {
+                menuGreeting.textContent =
+                    `Olá, ${user.displayName || 'Utilizador'}! Bom dia!`;
+            }
+        },
+        (error) => {
+            console.error('[VerdeVivo Auth] Falha ao verificar a sessão:', error);
+            menuGreeting.textContent = 'Não foi possível verificar a sessão.';
+        }
+    );
 }
 
-if (menuExit) {
-    menuExit.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.VerdeVivoDB?.clearCurrentUser?.();
-        window.location.href = '../index.html';
-    });
-}
